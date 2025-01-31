@@ -1,5 +1,6 @@
 // Text constants
 pub const GAME_NAME: &str = "Space invader game or something lol!";
+pub const PAUSE_TEXT: &str = "Paused lol";
 
 // Window and scale constants
 pub const MAX_HEIGHT: f32 = 512.;

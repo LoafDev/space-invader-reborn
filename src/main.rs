@@ -1,12 +1,6 @@
 use bevy::prelude::*;
 mod game; mod constants; mod game_ui;
 
-pub fn despawn_screen
-<T: Component> (
-    mut commands: Commands,
-    entity: Query<Entity, With<T>>,
-) { for e in &entity { commands.entity(e).despawn_recursive(); }}
-
 #[derive(States, Clone, Copy, Default, Eq, PartialEq, Debug, Hash)]
 pub enum GameState {
     #[default]
@@ -31,6 +25,7 @@ fn main() {
         .set(ImagePlugin::default_nearest()),
     )
     .init_state::<GameState>()
+    .enable_state_scoped_entities::<GameState>()
     .add_plugins((game::GamePlugin, game_ui::GameUiPlugin))
     .run();
 }

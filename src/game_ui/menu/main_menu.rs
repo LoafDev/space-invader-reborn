@@ -2,15 +2,11 @@ use bevy::prelude::*;
 use crate::{game_ui::menu, constants};
 use super::MenuButton;
 
-#[derive(Component)]
-struct WhileInMainMenu;
-
 pub struct MainMenuPlugin;
 impl Plugin for MainMenuPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(OnEnter(menu::MenuState::InMain), setup_main_menu)
-            .add_systems(OnExit(menu::MenuState::InMain), crate::despawn_screen::<WhileInMainMenu>);
+            .add_systems(OnEnter(menu::MenuState::InMain), setup_main_menu);
     }
 }
 
@@ -33,7 +29,7 @@ fn setup_main_menu (mut commands: Commands) {
            align_items: AlignItems::Center,
            justify_content: JustifyContent::Center,
            ..Default::default()
-       }, WhileInMainMenu
+       }, StateScoped(menu::MenuState::InMain)
     ))
     .with_children(|manager| {
         manager.spawn((

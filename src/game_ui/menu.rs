@@ -15,6 +15,7 @@ impl Plugin for MenuPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_sub_state::<MenuState>()
+            .enable_state_scoped_entities::<MenuState>()
             .add_plugins((main_menu::MainMenuPlugin, credit::CreditPlugin));
     }
 }

@@ -1,15 +1,11 @@
 use bevy::prelude::*;
 use crate::{GameState, constants, game_ui::MenuButton};
 
-#[derive(Component)]
-struct WhileInWinMenu;
-
 pub struct GameWinPlugin;
 impl Plugin for GameWinPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(OnEnter(GameState::GameWin), setup_win_menu)
-            .add_systems(OnExit(GameState::GameWin), crate::despawn_screen::<WhileInWinMenu>);
+            .add_systems(OnEnter(GameState::GameWin), setup_win_menu);
     }
 }
 
@@ -32,7 +28,7 @@ fn setup_win_menu (mut commands: Commands) {
            align_items: AlignItems::Center,
            justify_content: JustifyContent::Center,
            ..Default::default()
-       }, WhileInWinMenu
+       }, StateScoped(GameState::GameWin)
     ))
     .with_children(|manager| {
         manager.spawn((

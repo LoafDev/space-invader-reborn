@@ -1,5 +1,5 @@
 use bevy::{prelude::*, window::PrimaryWindow};
-use crate::GameState;
+use crate::game::InGameState;
 use ops::atan2;
 
 #[derive(Resource, Default)]
@@ -17,7 +17,7 @@ impl Plugin for CameraPlugin {
         app
             .init_resource::<WorldCoord>()
             .add_systems(Startup, setup_camera)
-            .add_systems(Update, (cursor_system, rotate_to_mouse).run_if(in_state(GameState::InGame)));
+            .add_systems(Update, (cursor_system, rotate_to_mouse).run_if(in_state(InGameState::Playing)));
     }
 }
 

@@ -1,7 +1,7 @@
 use std::time::Duration;
 use bevy::prelude::*;
 use bevy::time::common_conditions::on_timer;
-use crate::{constants, GameState, game::{bullet, cameras, collisions, self}};
+use crate::{constants, game::{bullet, cameras, collisions, InGameState}, GameState};
 
 pub struct PlayerPlugin;
 
@@ -9,8 +9,8 @@ pub struct PlayerPlugin;
 struct Player;
 
 #[derive(Resource)]
-struct PlayerShoot {
-    ammo: usize,
+pub struct PlayerShoot {
+    pub ammo: usize
 }
 
 impl Plugin for PlayerPlugin {
@@ -21,7 +21,7 @@ impl Plugin for PlayerPlugin {
                 input_player,
                 player_shoot,
                 player_cooldown.run_if(on_timer(Duration::from_secs(1)))
-            ).run_if(in_state(GameState::InGame)));
+            ).run_if(in_state(InGameState::Playing)));
     }
 }
 
@@ -36,7 +36,7 @@ fn setup_player (
         Player,
         cameras::RotateToMouse,
         collisions::Collider,
-        game::WhileInGame
+        StateScoped(GameState::InGame)
     ));
 }
 
@@ -68,7 +68,7 @@ fn player_shoot (
             Transform::from_translation(Vec3::new(player.translation.x, player.translation.y, -1.)).with_scale(Vec3::splat(constants::SCALE_RATIO)).with_rotation(player.rotation),
             bullet::Bullet,
             bullet::Velocity,
-            game::WhileInGame
+            StateScoped(GameState::InGame)
         ));
         player_shoot.ammo -= 1;
     }

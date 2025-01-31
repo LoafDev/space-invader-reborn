@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{GameState, constants};
+use crate::{constants, game::InGameState};
 
 pub struct BulletPlugin;
 
@@ -21,7 +21,7 @@ impl Plugin for BulletPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_systems(Startup, setup_bullet)
-            .add_systems(Update, apply_velocity.run_if(in_state(GameState::InGame)));
+            .add_systems(Update, apply_velocity.run_if(in_state(InGameState::Playing)));
     }
 }
 

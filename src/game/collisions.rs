@@ -1,5 +1,5 @@
 use bevy::{math::bounding::{Aabb2d, BoundingCircle, IntersectsVolume}, prelude::*};
-use crate::{constants, GameState, game::{bullet, enemy}};
+use crate::{ constants, game::{ bullet, enemy, InGameState } };
 
 #[derive(Component)]
 pub struct Collider;
@@ -13,7 +13,7 @@ impl Plugin for CollisionPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_event::<Collision>()
-            .add_systems(Update, check_collision.run_if(in_state(GameState::InGame)));
+            .add_systems(Update, check_collision.run_if(in_state(InGameState::Playing)));
     }
 }
 

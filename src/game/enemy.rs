@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{constants, GameState, game::collisions};
+use crate::{ constants, game::{collisions, InGameState}, GameState };
 
 pub struct EnemyPlugin;
 
@@ -16,7 +16,7 @@ impl Plugin for EnemyPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_systems(OnEnter(GameState::InGame), setup_enemy)
-            .add_systems(Update, (move_enemy, shift_enemy).run_if(in_state(GameState::InGame)));
+            .add_systems(Update, (move_enemy, shift_enemy).run_if(in_state(InGameState::Playing)));
     }
 }
 
@@ -39,7 +39,8 @@ fn setup_enemy (
                 Sprite { image: enemy_sprite.clone(), ..Default::default() },
                 Transform::from_translation(position).with_scale(Vec3::splat(constants::SCALE_RATIO)),
                 Enemy,
-                collisions::Collider
+                collisions::Collider,
+                StateScoped(GameState::InGame)
             ));
         }
     }

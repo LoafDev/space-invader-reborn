@@ -17,15 +17,17 @@ pub const HEIGHT_ENEMY: usize = 5;
 pub const ENEMY_SPACE: f32 = 24.;
 pub const ENEMY_SPEED: f32 = 100.;
 pub const ENEMY_SHIFT: f32 = 30.;
+pub const ENEMY_DAMAGE: usize = 1;
+pub const ENEMY_SHOOT_COOLDOWN: u64 = 1;
 
 // Player's constants
 pub const PLAYER_SPEED: f32 = 200.;
-
+pub const MAX_PLAYER_HEALTH: usize = 3;
+pub const PLAYER_SHOOT_COOLDOWN: u64 = 1;
 
 // Bullets' constants
 pub const BULLET_RADIUS: f32 = 20.;
 pub const PLAYER_BULLETS: usize = 100; //for testing purpose, default is 2
 pub const PLAYER_BULLET_SPEED: f32 = 500.;
-pub const ENEMY_BULLETS: usize = 1;
-pub const ENEMY_BULLET_SPEED: f32 = 100.;
+pub const ENEMY_BULLET_SPEED: f32 = -100.;
  

@@ -7,15 +7,13 @@ pub struct BulletPlugin;
 pub struct BulletImage(pub Handle<Image>);
 
 #[derive(Component)]
-pub struct RNGSpawnRate {
-    percentage: f32
-}
+pub struct EnemyMarker;
 
 #[derive(Component)]
 pub struct Bullet;
 
 #[derive(Component)]
-pub struct Velocity;
+pub struct Velocity(pub f32);
 
 impl Plugin for BulletPlugin {
     fn build(&self, app: &mut App) {
@@ -34,11 +32,11 @@ fn setup_bullet (
 
 fn apply_velocity (
     mut commands: Commands,
-    mut query: Query<(Entity, &mut Transform), With<Velocity>>,
+    mut query: Query<(Entity, &Velocity, &mut Transform), With<Velocity>>,
     time: Res<Time>
 ) {
-    for (entity, mut transform) in query.iter_mut() {
-        let movement = constants::PLAYER_BULLET_SPEED * time.delta_secs();
+    for (entity, velocity, mut transform) in query.iter_mut() {
+        let movement = velocity.0 * time.delta_secs();
         let movement_direction = transform.rotation * Vec3::Y;
         transform.translation += movement_direction * movement;
 

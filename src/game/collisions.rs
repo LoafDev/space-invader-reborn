@@ -25,7 +25,7 @@ fn iscollision (
 
 fn check_collision (
     mut commands: Commands,
-    bullet_q: Query<(Entity, &Transform, Option<&bullet::RNGSpawnRate>), With<bullet::Velocity>>,
+    bullet_q: Query<(Entity, &Transform, Option<&bullet::EnemyMarker>), With<bullet::Velocity>>,
     collider_q: Query<(Entity, &Transform, Option<&enemy::Enemy>), With<Collider>>,
     mut collision_event: EventWriter<Collision>
 ) {
@@ -42,7 +42,6 @@ fn check_collision (
                     commands.entity(bullet_entity).despawn();
                     collision_event.send(Collision(true));
                 } else if maybe_enemy.is_none() && maybe_enemy_bullet.is_some() {
-                    println!("Player is dead but I'm too lazy to implement game over screen lol");
                     commands.entity(bullet_entity).despawn();
                     collision_event.send(Collision(false));
                 }

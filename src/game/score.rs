@@ -63,7 +63,7 @@ fn setup_score (mut commands: Commands) {
 
 fn draw_score (
     score: Res<Score>,
-    ammo: Res<crate::game::player::PlayerShoot>,
+    ammo: Res<crate::game::player::PlayerEssentials>,
     score_text: Single<&mut TextSpan, (With<ScoreText>, Without<AmmoText>)>,
     ammo_text: Single<&mut TextSpan, With<AmmoText>>
 ) {

@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{ constants, game_ui::{MenuButton, menu} };
+use crate::{ constants, game_ui::{menu, self, MenuButton} };
 
 pub struct CreditPlugin;
 impl Plugin for CreditPlugin {
@@ -8,7 +8,7 @@ impl Plugin for CreditPlugin {
     }
 }
 
-fn setup_credit(mut commands: Commands) {
+fn setup_credit(mut commands: Commands, cus_font: Res<game_ui::CusFont>) {
     let button_node = Node {
         width: Val::Px(300.),
         height: Val::Px(65.),
@@ -18,7 +18,7 @@ fn setup_credit(mut commands: Commands) {
         ..Default::default()
     };
 
-    let button_font = TextFont { font_size: 33., ..Default::default() };
+    let button_font = TextFont { font_size: 33., font: cus_font.0.clone(), ..Default::default() };
 
     commands.spawn((
        Node {

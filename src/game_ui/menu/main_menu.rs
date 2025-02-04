@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{game_ui::menu, constants};
+use crate::{constants, game_ui::{self, menu}};
 use super::MenuButton;
 
 pub struct MainMenuPlugin;
@@ -10,7 +10,7 @@ impl Plugin for MainMenuPlugin {
     }
 }
 
-fn setup_main_menu (mut commands: Commands) {
+fn setup_main_menu (mut commands: Commands, cus_font: Res<game_ui::CusFont>) {
     let button_node = Node {
         width: Val::Px(300.),
         height: Val::Px(65.),
@@ -20,7 +20,7 @@ fn setup_main_menu (mut commands: Commands) {
         ..Default::default()
     };
 
-    let button_font = TextFont { font_size: 33., ..Default::default() };
+    let button_font = TextFont { font_size: 40., font: cus_font.0.clone(), ..Default::default() };
 
     commands.spawn((
        Node {
@@ -43,7 +43,7 @@ fn setup_main_menu (mut commands: Commands) {
         .with_children(|child| {
             child.spawn((
                 Text::new(constants::GAME_NAME),
-                TextFont { font_size:  50., ..Default::default() },
+                TextFont { font_size:  50., font: cus_font.0.clone(), ..Default::default() },
                 TextColor(constants::TEXT_COLOR),
                 Node { margin: UiRect::all(Val::Px(50.)), ..Default::default() }
             ));

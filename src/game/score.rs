@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{constants, game::{collisions, InGameState}, GameState};
+use crate::{constants, game::{collisions, InGameState}, game_ui, GameState};
 
 pub struct ScorePlugin;
 
@@ -20,12 +20,12 @@ struct ScoreText;
 #[derive(Component)]
 struct AmmoText;
 
-fn setup_score (mut commands: Commands) {
+fn setup_score (mut commands: Commands, cus_font: Res<game_ui::CusFont>) {
     commands.insert_resource(Score(0));
 
     commands.spawn((
         Text::new("Score: "),
-        TextFont { font_size: 20., ..Default::default() },
+        TextFont { font_size: 40., font: cus_font.0.clone(), ..Default::default() },
         TextLayout::new_with_justify(JustifyText::Center),
         Node {
             position_type: PositionType::Absolute,
@@ -36,14 +36,14 @@ fn setup_score (mut commands: Commands) {
         StateScoped(GameState::InGame)
     )).with_child((
         TextSpan::default(),
-        TextFont { font_size: 24., ..Default::default() },
+        TextFont { font_size: 39., font: cus_font.0.clone(), ..Default::default() },
         TextColor(constants::TEXT_COLOR),
         ScoreText
     ));
 
     commands.spawn((
         Text::new("Ammo: "),
-        TextFont { font_size: 20., ..Default::default() },
+        TextFont { font_size: 40., font: cus_font.0.clone(), ..Default::default() },
         TextLayout::new_with_justify(JustifyText::Center),
         Node {
             position_type: PositionType::Absolute,
@@ -54,7 +54,7 @@ fn setup_score (mut commands: Commands) {
         StateScoped(GameState::InGame)
     )).with_child((
         TextSpan::default(),
-        TextFont { font_size: 24., ..Default::default() },
+        TextFont { font_size: 39., font: cus_font.0.clone(), ..Default::default() },
         TextColor(constants::TEXT_COLOR),
         AmmoText
     ));

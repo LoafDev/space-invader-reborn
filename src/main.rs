@@ -26,6 +26,7 @@ fn main() {
     )
     .init_state::<GameState>()
     .enable_state_scoped_entities::<GameState>()
-    .add_plugins((game::GamePlugin, game_ui::GameUiPlugin))
+    .add_plugins(game_ui::GameUiPlugin)
+    .add_plugins(game::GamePlugin)
     .run();
 }

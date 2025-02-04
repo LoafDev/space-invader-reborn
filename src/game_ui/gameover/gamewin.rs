@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{GameState, constants, game_ui::MenuButton};
+use crate::{constants, game_ui::{self, MenuButton}, GameState};
 
 pub struct GameWinPlugin;
 impl Plugin for GameWinPlugin {
@@ -9,7 +9,7 @@ impl Plugin for GameWinPlugin {
     }
 }
 
-fn setup_win_menu (mut commands: Commands) {
+fn setup_win_menu (mut commands: Commands, cus_font: Res<game_ui::CusFont>) {
     let button_node = Node {
         width: Val::Px(300.),
         height: Val::Px(65.),
@@ -19,7 +19,7 @@ fn setup_win_menu (mut commands: Commands) {
         ..Default::default()
     };
 
-    let button_font = TextFont { font_size: 33., ..Default::default() };
+    let button_font = TextFont { font_size: 33., font: cus_font.0.clone(), ..Default::default() };
 
     commands.spawn((
        Node {

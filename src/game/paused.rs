@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::constants;
+use crate::{constants, game_ui};
 use super::InGameState;
 
 #[derive(Component)]
@@ -15,10 +15,10 @@ impl Plugin for PausedPlugin {
     }
 }
 
-fn setup_paused(mut commands: Commands) {
+fn setup_paused(mut commands: Commands, cus_font: Res<game_ui::CusFont>) {
     commands.spawn((
         Text::new(constants::PAUSE_TEXT),
-        TextFont { font_size: 20., ..Default::default() },
+        TextFont { font_size: 40., font: cus_font.0.clone(), ..Default::default() },
         TextLayout::new_with_justify(JustifyText::Center),
         Node {
             position_type: PositionType::Absolute,

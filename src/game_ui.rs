@@ -10,13 +10,25 @@ pub enum MenuButton {
     Back
 }
 
+#[derive(Resource)]
+pub struct CusFont(pub Handle<Font>);
+
 pub struct GameUiPlugin;
 impl Plugin for GameUiPlugin {
     fn build(&self, app: &mut App) {
         app
+            .add_systems(OnEnter(GameState::Menu), setup_gameui)
             .add_plugins((menu::MenuPlugin, gameover::GameOverPlugin))
             .add_systems(Update, press_button.run_if(not(in_state(GameState::InGame))));
     }
+}
+
+
+fn setup_gameui (
+    mut commands: Commands,
+    asset_server: ResMut<AssetServer>
+) {
+    commands.insert_resource(CusFont(asset_server.load("Acme 9 Regular.ttf")));
 }
 
 fn press_button (

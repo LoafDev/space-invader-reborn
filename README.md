@@ -1,5 +1,5 @@
 # space invader reborn
-A remake of a class space invader game with my tweaks, made with bevy.
+A remake of a classic space invader game with my tweaks, made with bevy.
 
 # The assets were made by Biped Potato, he is a great youtuber who thought game tutorials should be short and easy to understand
 
